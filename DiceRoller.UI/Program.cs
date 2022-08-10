@@ -7,7 +7,6 @@ const string MAIN_MENU_OPTION_ROLL_DICE = "Roll Dice";
 const string MAIN_MENU_OPTION_ROLL_ABILITY_SCORE = "Roll Ability Score";
 const string MAIN_MENU_OPTION_EXIT = "Exit";
 string[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_ROLL_DICE, MAIN_MENU_OPTION_ROLL_ABILITY_SCORE, MAIN_MENU_OPTION_EXIT }; //const has to be known at compile time, the array initializer is not const in C#
-string[] DIE_TYPE_OPTIONS = { "d2","d3","d4","d6","d8","d10","d12","d20","d100"};
 
 IBasicUserInterface ui = new MenuDrivenCLI();
 
@@ -92,6 +91,7 @@ DieTypes GetDieTypeFromInput(int dieSelection)
         7 => DieTypes.d12,
         8 => DieTypes.d20,
         9 => DieTypes.d100,
+        _ => throw new NotImplementedException(),
     };
 }
 

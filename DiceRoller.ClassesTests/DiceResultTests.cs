@@ -11,9 +11,11 @@ namespace DiceRoller.Classes.Tests
             //Arrange
 
             //Act
-            DiceResult dr = new();
-            dr.NumberThrown = 1;
-            dr.DieType = DieTypes.d2;
+            DiceResult dr = new()
+            {
+                NumberThrown = 1,
+                DieType = DieTypes.d2
+            };
             dr.RollDice();
 
             //Assert
@@ -30,9 +32,11 @@ namespace DiceRoller.Classes.Tests
             //Arrange
 
             //Act
-            DiceResult dr = new();
-            dr.NumberThrown = 1;
-            dr.DieType = DieTypes.d3;
+            DiceResult dr = new()
+            {
+                NumberThrown = 1,
+                DieType = DieTypes.d3
+            };
             dr.RollDice();
 
             //Assert
@@ -49,9 +53,11 @@ namespace DiceRoller.Classes.Tests
             //Arrange
 
             //Act
-            DiceResult dr = new();
-            dr.NumberThrown = 1;
-            dr.DieType = DieTypes.d4;
+            DiceResult dr = new()
+            {
+                NumberThrown = 1,
+                DieType = DieTypes.d4
+            };
             dr.RollDice();
 
             //Assert
@@ -68,9 +74,11 @@ namespace DiceRoller.Classes.Tests
             //Arrange
 
             //Act
-            DiceResult dr = new();
-            dr.NumberThrown = 1;
-            dr.DieType = DieTypes.d6;
+            DiceResult dr = new()
+            {
+                NumberThrown = 1,
+                DieType = DieTypes.d6
+            };
             dr.RollDice();
 
             //Assert
@@ -87,9 +95,11 @@ namespace DiceRoller.Classes.Tests
             //Arrange
 
             //Act
-            DiceResult dr = new();
-            dr.NumberThrown = 1;
-            dr.DieType = DieTypes.d8;
+            DiceResult dr = new()
+            {
+                NumberThrown = 1,
+                DieType = DieTypes.d8
+            };
             dr.RollDice();
 
             //Assert
@@ -106,9 +116,11 @@ namespace DiceRoller.Classes.Tests
             //Arrange
 
             //Act
-            DiceResult dr = new();
-            dr.NumberThrown = 1;
-            dr.DieType = DieTypes.d10;
+            DiceResult dr = new()
+            {
+                NumberThrown = 1,
+                DieType = DieTypes.d10
+            };
             dr.RollDice();
 
             //Assert
@@ -125,9 +137,11 @@ namespace DiceRoller.Classes.Tests
             //Arrange
 
             //Act
-            DiceResult dr = new();
-            dr.NumberThrown = 1;
-            dr.DieType = DieTypes.d12;
+            DiceResult dr = new()
+            {
+                NumberThrown = 1,
+                DieType = DieTypes.d12
+            };
             dr.RollDice();
 
             //Assert
@@ -144,9 +158,11 @@ namespace DiceRoller.Classes.Tests
             //Arrange
 
             //Act
-            DiceResult dr = new();
-            dr.NumberThrown = 1;
-            dr.DieType = DieTypes.d20;
+            DiceResult dr = new()
+            {
+                NumberThrown = 1,
+                DieType = DieTypes.d20
+            };
             dr.RollDice();
 
             //Assert
@@ -163,9 +179,11 @@ namespace DiceRoller.Classes.Tests
             //Arrange
 
             //Act
-            DiceResult dr = new();
-            dr.NumberThrown = 1;
-            dr.DieType = DieTypes.d100;
+            DiceResult dr = new()
+            {
+                NumberThrown = 1,
+                DieType = DieTypes.d100
+            };
             dr.RollDice();
 
             //Assert
