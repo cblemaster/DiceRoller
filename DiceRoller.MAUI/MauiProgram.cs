@@ -15,7 +15,11 @@ namespace DiceRoller.MAUI
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+                })
+                .Services
+                    .AddSingleton<AppShell>()
+                    .AddTransient<RollDicePageModel>()
+                    .AddTransient<RollDicePage>();
 
 #if DEBUG
     		builder.Logging.AddDebug();
