@@ -1,6 +1,6 @@
 # DiceRoller
 
-## A .NET MAUI/C# application that roll any of the dice used in the world's most popular role-playing game.
+## A .NET MAUI/C# application that rolls any of the dice used in the world's most popular role-playing game.
 
 ### Built with:
 - .NET 8 / C# 12
