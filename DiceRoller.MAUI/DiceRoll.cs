@@ -42,7 +42,7 @@
             // generate random for each Count and add to collection to return
             for (int i = 1; i <= Count; i++)
             {
-                dieRolls.Add(GetRandom(Sides));
+                dieRolls.Add((uint)(_random.Next(1, (int)Sides + 1)));
             }
 
             if (dieRolls.Any(d => d > Sides || d == 0))
@@ -100,7 +100,5 @@
                 return value;
             }
         }
-
-        public uint GetRandom(uint sides = 20) => (uint)(_random.Next((int)sides + 1));
     }
 }
