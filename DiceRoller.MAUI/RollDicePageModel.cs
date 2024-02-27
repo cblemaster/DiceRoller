@@ -37,12 +37,14 @@ namespace DiceRoller.MAUI
         private string _rollTotal = default!;
         [ObservableProperty]
         private bool _d2d3D100IsSelected;
-
-        private bool CanRollDice => SelectedDie != null && Count != null && Modifier != null;
+        [ObservableProperty]
+        private bool _canRollDice;
 
         [RelayCommand]
         private void SelectedDieChanged()
         {
+            CanRollDice = true;
+            
             D2d3D100IsSelected = SelectedDie == "d2" || SelectedDie == "d3" || SelectedDie == "d100";
             if (D2d3D100IsSelected)
             {

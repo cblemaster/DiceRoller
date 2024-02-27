@@ -46,6 +46,10 @@
             <Setter Property="HeightRequest" Value="50" />
             <Setter Property="WidthRequest" Value="200" />
         </Style>
+        <Style TargetType="HorizontalStackLayout">
+            <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+            <Setter Property="Spacing" Value="10" />
+        </Style>
         <toolkit:InvertedBoolConverter x:Key="converter" />
     </ContentPage.Resources>
     <Grid ColumnDefinitions="7*,3*" RowDefinitions="1*,1*,1*,1*,1*" Margin="20,20,20,20" BackgroundColor="{StaticResource GridBackground}">
@@ -61,7 +65,7 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <HorizontalStackLayout Grid.Row="2" Spacing="10" HorizontalOptions="CenterAndExpand">
+        <HorizontalStackLayout Grid.Row="2">
             <Label Text="Count of dice to roll:" FontSize="18" Style="{StaticResource BaseLabelStyle}"  VerticalOptions="Center" />
             <Entry Text="{Binding Count, Mode=TwoWay}" IsEnabled="{Binding D2d3D100IsSelected, Mode=OneWay, Converter={StaticResource converter}}" Placeholder="Count of dice to roll" ToolTipProperties.Text="You can roll between one (1) and 100 dice! (d2, d3, and d100 can only be rolled as singles.)">
                 <Entry.Behaviors>
@@ -69,7 +73,7 @@
                 </Entry.Behaviors>
             </Entry>
         </HorizontalStackLayout>
-        <HorizontalStackLayout Grid.Row="3" Spacing="10" HorizontalOptions="CenterAndExpand">
+        <HorizontalStackLayout Grid.Row="3">
             <Label Text="Modifier:" FontSize="18" Style="{StaticResource BaseLabelStyle}"  VerticalOptions="Center" />
             <Entry Text="{Binding Modifier, Mode=TwoWay}" Placeholder="Modifier" ToolTipProperties.Text="Modifier can be between -100 and 100.">
                 <Entry.Behaviors>
@@ -77,9 +81,7 @@
                 </Entry.Behaviors>
             </Entry>
         </HorizontalStackLayout>
-        <Button Command="{Binding RollDiceClickedCommand, Mode=OneWay}" Grid.Row="4" Text="Roll Dice" BackgroundColor="{StaticResource ButtonColor}" HeightRequest="60" WidthRequest="100" HorizontalOptions="CenterAndExpand">
-            
-        </Button>
+        <Button Command="{Binding RollDiceClickedCommand, Mode=OneWay}" IsEnabled="{Binding CanRollDice, Mode=OneWay}" Grid.Row="4" Text="Roll Dice" BackgroundColor="{StaticResource ButtonColor}" HeightRequest="60" WidthRequest="100" HorizontalOptions="CenterAndExpand" />
         <VerticalStackLayout Grid.Column="1" Grid.Row="2" Grid.RowSpan="3">
             <Label Text="Results" FontAttributes="Bold" FontSize="16" TextDecorations="Underline" Style="{StaticResource BaseLabelStyle}"/>
             <Label Text="{Binding SelectedDieWithCount, Mode=OneWay, StringFormat='Dice selected: {0}'}" Grid.Row="1" Style="{StaticResource BaseLabelStyle}" />
