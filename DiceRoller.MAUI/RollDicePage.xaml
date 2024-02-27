@@ -69,11 +69,14 @@
                 </Entry.Behaviors>
             </Entry>
         </HorizontalStackLayout>
-        <Entry Text="{Binding Modifier, Mode=TwoWay}" Grid.Row="3" Placeholder="Modifier" ToolTipProperties.Text="Modifier can be between -100 and 100.">
-            <Entry.Behaviors>
-                <toolkit:NumericValidationBehavior MinimumValue="-100" MaximumValue="100" MaximumDecimalPlaces="0" Flags="ValidateOnValueChanged" ValidStyle="{StaticResource validstyle}" InvalidStyle="{StaticResource invalidstyle}" />
-            </Entry.Behaviors>
-        </Entry>
+        <HorizontalStackLayout Grid.Row="3" Spacing="10" HorizontalOptions="CenterAndExpand">
+            <Label Text="Modifier:" FontSize="18" Style="{StaticResource BaseLabelStyle}"  VerticalOptions="Center" />
+            <Entry Text="{Binding Modifier, Mode=TwoWay}" Placeholder="Modifier" ToolTipProperties.Text="Modifier can be between -100 and 100.">
+                <Entry.Behaviors>
+                    <toolkit:NumericValidationBehavior MinimumValue="-100" MaximumValue="100" MaximumDecimalPlaces="0" Flags="ValidateOnValueChanged" ValidStyle="{StaticResource validstyle}" InvalidStyle="{StaticResource invalidstyle}" />
+                </Entry.Behaviors>
+            </Entry>
+        </HorizontalStackLayout>
         <Button Command="{Binding RollDiceClickedCommand, Mode=OneWay}" Grid.Row="4" Text="Roll Dice" BackgroundColor="{StaticResource ButtonColor}" HeightRequest="60" WidthRequest="100" HorizontalOptions="CenterAndExpand">
             
         </Button>
