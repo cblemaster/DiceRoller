@@ -76,7 +76,7 @@ namespace DiceRoller.MAUI
             RollsAsString = RollsAsCommaSeparatedSttring(rolls);
             RollTotal = ((int)(rolls.Sum(r => r)) + ModifierNum).ToString();
 
-            // TODO: Send message with dice roll results payload to a logging service (text files)
+            LoggingService.WriteRollResultToLog(SelectedDieWithCount, RollsAsString, Modifier, RollTotal);
         }
     }
 }
