@@ -1,104 +1,119 @@
-﻿namespace DiceRoller.MAUI
+﻿namespace DiceRoller.MAUI;
+public class DiceRoll
 {
-    public class DiceRoll
+    private readonly Random _random = new();
+    public static IEnumerable<uint> ValidSides => [2, 3, 4, 6, 8, 10, 12, 20, 100];
+
+    public required uint Sides { get; init; }
+    public required uint Count { get; init; }
+    public required int Modifier { get; init; }
+
+    public bool IsSidesValid => ValidSides.Contains<uint>(Sides);
+    public bool IsCountValid => (Sides == 2 || Sides == 3 || Sides == 100) && Count == 1 || Count > 0; // d2 and d3 can only be rolled with count of one (1); it also doesn't make sense to roll more than one (1) d100
+
+    public bool IsModifierValid => Modifier is <= 100 and >= (-100);
+
+    public IEnumerable<uint> Roll()
     {
-        private readonly Random _random = new();
-        public static IEnumerable<uint> ValidSides => [2, 3, 4, 6, 8, 10, 12, 20, 100];
+        /* I consulted the 5th edition player's handbook
+           for guidance on dice rolling rules */
 
-        public required uint Sides { get; init; }
-        public required uint Count { get; init; }
-        public required int Modifier { get; init; }
+        List<uint> dieRolls = [];
 
-        public bool IsSidesValid => ValidSides.Contains<uint>(Sides);
-        public bool IsCountValid => (Sides == 2 || Sides == 3 || Sides == 100) && Count == 1 || Count > 0; // d2 and d3 can only be rolled with count of one (1); it also doesn't make sense to roll more than one (1) d100
+        if (!IsSidesValid || !IsModifierValid || !IsCountValid) { return dieRolls; }
 
-        public bool IsModifierValid => Modifier is <= 100 and >= (-100);
-
-        public IEnumerable<uint> Roll()
+        if (Sides == 100)   // d100 has special rules
         {
-            /* I consulted the 5th edition player's handbook
-               for guidance on dice rolling rules */
+            dieRolls.Add(RollPercentile());
+            return dieRolls;
+        }
+        if (Sides == 2)   // d2 has special rules
+        {
+            dieRolls.Add(Rolld2());
+            return dieRolls;
+        }
+        if (Sides == 3)   // d3 has special rules
+        {
+            dieRolls.Add(Rolld3());
+            return dieRolls;
+        }
 
-            List<uint> dieRolls = [];
+        // generate random for each Count and add to collection to return
+        for (int i = 1; i <= Count; i++)
+        {
+            dieRolls.Add((uint)(_random.Next(1, (int)Sides + 1)));
+        }
 
-            if (!IsSidesValid || !IsModifierValid || !IsCountValid) { return dieRolls; }
+        // check for any invalid rolls
+        if (dieRolls.Any(d => d > Sides || d == 0))
+        {
+            throw new InvalidRollException("Result contains one or more invalid rolls, either a zero or a number higher than the die's sides.");
+        }
+        
+        return dieRolls.AsEnumerable<uint>();
 
-            if (Sides == 100)   // d100 has special rules
-            {
-                dieRolls.Add(RollPercentile());
-                return dieRolls;
-            }
-            if (Sides == 2)   // d2 has special rules
-            {
-                dieRolls.Add(Rolld2());
-                return dieRolls;
-            }
-            if (Sides == 3)   // d3 has special rules
-            {
-                dieRolls.Add(Rolld3());
-                return dieRolls;
-            }
+        uint RollPercentile()
+        {
+            // Per the 5th edition PH d100 is two (2) d10s
+            // the first representing the tens place
+            // the second representing the ones place
 
-            // generate random for each Count and add to collection to return
-            for (int i = 1; i <= Count; i++)
+            uint tens = (uint)_random.Next(0, 10);
+            uint ones = (uint)_random.Next(0, 10);
+
+            if (tens == 0)
             {
-                dieRolls.Add((uint)(_random.Next(1, (int)Sides + 1)));
+                return ones == 0 ? 100 : ones;
             }
 
-            if (dieRolls.Any(d => d > Sides || d == 0))
-            {
-                // just need something here to set a breakpoint on for debugging; should maybe replace this with an exception long term?
-                string a = string.Empty;
-            }
+            string combined = tens.ToString() + ones;
+            _ = uint.TryParse(combined, out uint percentile);
+
+            return percentile;
+        }
+
+        uint Rolld2()
+        {
+            // Per the 5th edition PH d2 is rolled
+            // by assigning either odd or even to one
+            // and the other to two for the result of 1d4
+
+            uint roll = (uint)_random.Next(1, 5);
+            return roll % 2 == 0 ? 1u : 2;
+        }
+
+        uint Rolld3()
+        {
+            // Per the 5th edition PH d3 is rolled
+            // by dividing the result of 1d6 by two, round up
+
+            uint roll = (uint)_random.Next(1, 7);
             
-            return dieRolls.AsEnumerable<uint>();
+            if (roll % 2 == 0) { return roll / 2; }
 
-            uint RollPercentile()
-            {
-                // Per the 5th edition PH d100 is two (2) d10s
-                // the first representing the tens place
-                // the second representing the ones place
+            decimal half = (decimal)roll / 2;
+            int drop = (int)half;
+            int roundup = drop + 1;
+            uint value = (uint)roundup;
 
-                uint tens = (uint)_random.Next(0, 10);
-                uint ones = (uint)_random.Next(0, 10);
+            return value;
+        }
+    }
 
-                if (tens == 0)
-                {
-                    return ones == 0 ? 100 : ones;
-                }
+    public class InvalidRollException : Exception
+    {
+        public InvalidRollException()
+        {
+        }
 
-                string combined = tens.ToString() + ones;
-                _ = uint.TryParse(combined, out uint percentile);
+        public InvalidRollException(string message)
+            : base(message)
+        {
+        }
 
-                return percentile;
-            }
-
-            uint Rolld2()
-            {
-                // Per the 5th edition PH d2 is rolled
-                // by assigning either odd or even to one
-                // and the other to two for the result of 1d4
-
-                uint roll = (uint)_random.Next(1, 5);
-                return roll % 2 == 0 ? 1u : 2;
-            }
-
-            uint Rolld3()
-            {
-                // Per the 5th edition PH d3 is rolled
-                // by dividing the result of 1d6 by two, round up
-
-                uint roll = (uint)_random.Next(1, 7);
-                
-                if (roll % 2 == 0) { return roll / 2; }
-
-                decimal half = (decimal)roll / 2;
-                int drop = (int)half;
-                int roundup = drop + 1;
-                uint value = (uint)roundup;
-
-                return value;
-            }
+        public InvalidRollException(string message, Exception inner)
+            : base(message, inner)
+        {
         }
     }
 }
