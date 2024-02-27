@@ -1,4 +1,6 @@
-﻿namespace DiceRoller.MAUI;
+﻿using DiceRoller.MAUI.Exceptions;
+
+namespace DiceRoller.MAUI.Models;
 public class DiceRoll
 {
     private readonly Random _random = new();
@@ -8,7 +10,7 @@ public class DiceRoll
     public required uint Count { get; init; }
     public required int Modifier { get; init; }
 
-    public bool IsSidesValid => ValidSides.Contains<uint>(Sides);
+    public bool IsSidesValid => ValidSides.Contains(Sides);
     public bool IsCountValid => (Sides == 2 || Sides == 3 || Sides == 100) && Count == 1 || Count > 0; // d2 and d3 can only be rolled with count of one (1); it also doesn't make sense to roll more than one (1) d100
 
     public bool IsModifierValid => Modifier is <= 100 and >= (-100);
@@ -41,7 +43,7 @@ public class DiceRoll
         // generate random for each Count and add to collection to return
         for (int i = 1; i <= Count; i++)
         {
-            dieRolls.Add((uint)(_random.Next(1, (int)Sides + 1)));
+            dieRolls.Add((uint)_random.Next(1, (int)Sides + 1));
         }
 
         // check for any invalid rolls
@@ -49,8 +51,8 @@ public class DiceRoll
         {
             throw new InvalidRollException("Result contains one or more invalid rolls, either a zero or a number higher than the die's sides.");
         }
-        
-        return dieRolls.AsEnumerable<uint>();
+
+        return dieRolls.AsEnumerable();
 
         uint RollPercentile()
         {
@@ -88,7 +90,7 @@ public class DiceRoll
             // by dividing the result of 1d6 by two, round up
 
             uint roll = (uint)_random.Next(1, 7);
-            
+
             if (roll % 2 == 0) { return roll / 2; }
 
             decimal half = (decimal)roll / 2;
@@ -97,23 +99,6 @@ public class DiceRoll
             uint value = (uint)roundup;
 
             return value;
-        }
-    }
-
-    public class InvalidRollException : Exception
-    {
-        public InvalidRollException()
-        {
-        }
-
-        public InvalidRollException(string message)
-            : base(message)
-        {
-        }
-
-        public InvalidRollException(string message, Exception inner)
-            : base(message, inner)
-        {
         }
     }
 }

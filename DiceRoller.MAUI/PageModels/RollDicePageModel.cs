@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DiceRoller.MAUI.Models;
+using DiceRoller.MAUI.Services;
 using System.Collections.ObjectModel;
 
-namespace DiceRoller.MAUI
+namespace DiceRoller.MAUI.PageModels
 {
     public partial class RollDicePageModel : ObservableObject
     {

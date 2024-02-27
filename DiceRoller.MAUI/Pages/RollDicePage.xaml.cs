@@ -1,4 +1,6 @@
-namespace DiceRoller.MAUI;
+using DiceRoller.MAUI.PageModels;
+
+namespace DiceRoller.MAUI.Pages;
 
 public partial class RollDicePage : ContentPage
 {
