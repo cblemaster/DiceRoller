@@ -14,6 +14,9 @@ namespace DiceRoller.MAUI
                 dice.Add($"d{num}");
             }
             Dice = dice.ToList().AsReadOnly();
+
+            Count = 1.ToString();
+            Modifier = 0.ToString();
         }
 
         [ObservableProperty]
@@ -59,7 +62,7 @@ namespace DiceRoller.MAUI
 
                 return (sidesNum, countNum, modifierNum);
             }
-            string RollsAsCommaSeparatedSttring(IEnumerable<uint> rolls) => string.Join(", ", rolls);
+            string RollsAsCommaSeparatedSttring(IEnumerable<uint> rolls) => string.Join(", ", rolls.ToList().Order());
 
             SelectedDieWithCount = $"{Count}{SelectedDie}";
 
@@ -70,6 +73,8 @@ namespace DiceRoller.MAUI
 
             RollsAsString = RollsAsCommaSeparatedSttring(rolls);
             RollTotal = ((int)(rolls.Sum(r => r)) + ModifierNum).ToString();
-        }  //TODO: Enable/disable button 
+
+            // TODO: Send message with dice roll results payload to a logging service (text files)
+        }
     }
 }
