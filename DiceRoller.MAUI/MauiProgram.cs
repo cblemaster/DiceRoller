@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Maui;
+using DiceRoller.MAUI.PageModels;
+using DiceRoller.MAUI.Pages;
 using Microsoft.Extensions.Logging;
 
 namespace DiceRoller.MAUI
