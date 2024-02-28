@@ -6,7 +6,7 @@
              x:DataType="{x:Type models:HowItWorksPageModel}"
              Title="How It Works">
     <VerticalStackLayout Margin="10,10,10,10" Spacing="15">
-        <Label Text="How it Works..." Style="{StaticResource JumboLabelStyle}" />
+        <Label Text="How it Works..." Style="{StaticResource LargerLabelStyle}" />
         <Label Style="{StaticResource LargeLabelStyle}" Text="Click the Roll Ability Scores button" />
         <Label Style="{StaticResource LargeLabelStyle}" Text="4d6 are rolled, with the lowest die discarded" />
         <Label Style="{StaticResource LargeLabelStyle}" Text="Which effectively returns 3d6" />

@@ -39,16 +39,16 @@
         <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
     </Style>
 
-    <Style TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}" x:Key="LargeButtonStyle">
-        <Setter Property="HeightRequest" Value="150" />
-        <Setter Property="WidthRequest" Value="275" />
-        <Setter Property="FontSize" Value="28" />
-        <Setter Property="VerticalOptions" Value="Center" />
-        <Setter Property="HorizontalOptions" Value="Center" />
-        <Setter Property="Margin" Value="10,10,10,10" />
+    <Style TargetType="Button" BasedOn="{StaticResource SmallButtonStyle}" x:Key="LargeButtonStyle">
+        <Setter Property="WidthRequest" Value="175" />
     </Style>
 
-    <Style TargetType="Frame">
+    <Style TargetType="CollectionView">
+        <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+        <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+    </Style>
+
+    <Style TargetType="Frame" x:Key="RollDiceFrameStyle">
         <Setter Property="HasShadow" Value="False" />
         <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
         <Setter Property="CornerRadius" Value="8" />
@@ -72,14 +72,17 @@
         </Setter>
     </Style>
 
+    <Style TargetType="Frame" BasedOn="{StaticResource RollDiceFrameStyle}" x:Key="RollAbilityScoresFrameStyle">
+        <Setter Property="HeightRequest" Value="200" />
+        <Setter Property="WidthRequest" Value="200" />
+    </Style>
+
     <Style TargetType="Grid" x:Key="ContainerGridStyle">
         <Setter Property="Margin" Value="20,20,20,20" />
         <Setter Property="BackgroundColor" Value="{StaticResource GridBackground}" />
-        <Setter Property="ColumnDefinitions" Value="7*,3*" />
-        <Setter Property="RowDefinitions" Value="1*,1*,1*,1*,1*" />
     </Style>
 
-    <Style TargetType="Entry">
+    <Style TargetType="Entry" x:Key="BaseEntryStyle">
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="14" />
         <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray500}}" />
@@ -99,12 +102,12 @@
         </Setter>
     </Style>
 
-    <Style TargetType="Entry" x:Key="validstyle">
+    <Style TargetType="Entry" BasedOn="{StaticResource BaseEntryStyle}" x:Key="validstyle">
         <Setter Property="BackgroundColor" Value="{StaticResource White}" />
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
     </Style>
 
-    <Style TargetType="Entry" x:Key="invalidstyle">
+    <Style TargetType="Entry" BasedOn="{StaticResource BaseEntryStyle}" x:Key="invalidstyle">
         <Setter Property="BackgroundColor" Value="LightPink" />
         <Setter Property="TextColor" Value="{StaticResource Magenta}" />
     </Style>
@@ -140,19 +143,33 @@
         <Setter Property="HorizontalOptions" Value="Center" />
     </Style>
 
-    <Style TargetType="Label" BasedOn="{StaticResource BaseLabelStyle}" x:Key="JumboLabelStyle">
+    <Style TargetType="Label" BasedOn="{StaticResource DiceLabelStyle}" x:Key="AbilityScoreResultLabelStyle">
+        <Setter Property="FontSize" Value="48" />
+    </Style>
+
+    <Style TargetType="Label" BasedOn="{StaticResource BaseLabelStyle}" x:Key="LargerLabelStyle">
         <Setter Property="FontSize" Value="20" />
+    </Style>
+
+    <Style TargetType="Label" BasedOn="{StaticResource BaseLabelStyle}" x:Key="GiantLabelStyle">
+        <Setter Property="FontSize" Value="64" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+    <Style TargetType="Label" BasedOn="{StaticResource BaseLabelStyle}" x:Key="LargerStrikethroughLabelStyle">
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="TextDecorations" Value="Strikethrough" />
+    </Style>
+
+    <Style TargetType="Label" BasedOn="{StaticResource BaseLabelStyle}" x:Key="MediumDecoratedLabelStyle">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextDecorations" Value="Underline" />
     </Style>
 
     <Style TargetType="Label" BasedOn="{StaticResource BaseLabelStyle}" x:Key="LargeLabelStyle">
         <Setter Property="FontSize" Value="18" />
         <Setter Property="VerticalOptions" Value="Center" />
-    </Style>
-
-    <Style TargetType="Label" BasedOn="{StaticResource BaseLabelStyle}" x:Key="MediumDecoratedLabelStyle">
-        <Setter Property="FontAttributes" Value="Bold" />
-        <Setter Property="FontSize" Value="16" />
-        <Setter Property="TextDecorations" Value="Underline" />
     </Style>
 
     <Style TargetType="Page" ApplyToDerivedTypes="True">

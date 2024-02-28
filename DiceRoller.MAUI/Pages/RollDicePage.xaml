@@ -10,14 +10,14 @@
     <ContentPage.Resources>
         <toolkit:InvertedBoolConverter x:Key="converter" />
     </ContentPage.Resources>
-    <Grid Style="{StaticResource ContainerGridStyle}">
-        <CollectionView ItemsSource="{Binding Dice, Mode=OneWay}" SelectedItem="{Binding SelectedDie, Mode=OneWayToSource}" SelectionChangedCommand="{Binding SelectedDieChangedCommand, Mode=OneWay}" SelectionMode="Single" Grid.ColumnSpan="2" Grid.RowSpan="2" HorizontalOptions="CenterAndExpand" Margin="10,10,10,10">
+    <Grid Style="{StaticResource ContainerGridStyle}" RowDefinitions="1*,1*,1*,1*,1*" ColumnDefinitions="7*,3*">
+        <CollectionView ItemsSource="{Binding Dice, Mode=OneWay}" SelectedItem="{Binding SelectedDie, Mode=OneWayToSource}" SelectionChangedCommand="{Binding SelectedDieChangedCommand, Mode=OneWay}" SelectionMode="Single" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="10,10,10,10">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Horizontal" ItemSpacing="3" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame>
+                    <Frame Style="{StaticResource RollDiceFrameStyle}">
                         <Label Text="{Binding ., Mode=OneWay}" Style="{StaticResource DiceLabelStyle}" />
                     </Frame>
                 </DataTemplate>
@@ -25,7 +25,7 @@
         </CollectionView>
         <HorizontalStackLayout Grid.Row="2">
             <Label Text="Count of dice to roll:" Style="{StaticResource LargeLabelStyle}" />
-            <Entry Text="{Binding Count, Mode=TwoWay}" IsEnabled="{Binding D2d3D100IsSelected, Mode=OneWay, Converter={StaticResource converter}}" Placeholder="Count of dice to roll" ToolTipProperties.Text="You can roll between one (1) and 100 dice! (d2, d3, and d100 can only be rolled as singles.)">
+            <Entry Text="{Binding Count, Mode=TwoWay}" IsEnabled="{Binding D2d3D100IsSelected, Mode=OneWay, Converter={StaticResource converter}}" Style="{StaticResource BaseEntryStyle}" Placeholder="Count of dice to roll" ToolTipProperties.Text="You can roll between one (1) and 100 dice! (d2, d3, and d100 can only be rolled as singles.)">
                 <Entry.Behaviors>
                     <toolkit:NumericValidationBehavior MinimumValue="1" MaximumValue="100" MaximumDecimalPlaces="0" Flags="ValidateOnValueChanged" ValidStyle="{StaticResource validstyle}" InvalidStyle="{StaticResource invalidstyle}" />
                 </Entry.Behaviors>
@@ -33,7 +33,7 @@
         </HorizontalStackLayout>
         <HorizontalStackLayout Grid.Row="3">
             <Label Text="Modifier:" Style="{StaticResource LargeLabelStyle}" />
-            <Entry Text="{Binding Modifier, Mode=TwoWay}" Placeholder="Modifier" ToolTipProperties.Text="Modifier can be between -100 and 100.">
+            <Entry Text="{Binding Modifier, Mode=TwoWay}" Style="{StaticResource BaseEntryStyle}" Placeholder="Modifier" ToolTipProperties.Text="Modifier can be between -100 and 100.">
                 <Entry.Behaviors>
                     <toolkit:NumericValidationBehavior MinimumValue="-100" MaximumValue="100" MaximumDecimalPlaces="0" Flags="ValidateOnValueChanged" ValidStyle="{StaticResource validstyle}" InvalidStyle="{StaticResource invalidstyle}" />
                 </Entry.Behaviors>
@@ -42,11 +42,11 @@
         <Button Command="{Binding RollDiceClickedCommand, Mode=OneWay}" IsEnabled="{Binding CanRollDice, Mode=OneWay}" Grid.Row="4" Text="Roll Dice" Style="{StaticResource SmallButtonStyle}" />
         <VerticalStackLayout Grid.Column="1" Grid.Row="2" Grid.RowSpan="3">
             <Label Text="Results" Style="{StaticResource MediumDecoratedLabelStyle}"/>
-            <Label Text="{Binding SelectedDieWithCount, Mode=OneWay, StringFormat='Dice selected: {0}'}" Grid.Row="1" Style="{StaticResource BaseLabelStyle}" />
+            <Label Text="{Binding SelectedDieWithCount, Mode=OneWay, StringFormat='Dice selected: {0}'}" Style="{StaticResource BaseLabelStyle}" />
             <Label Text="{Binding RollsAsString, Mode=OneWay, StringFormat='Indivdual rolls: {0}'}" MaxLines="15" Style="{StaticResource BaseLabelStyle}" />
             <Label Text="{Binding Modifier, Mode=OneWay, StringFormat='Modifier: {0}'}" Style="{StaticResource BaseLabelStyle}" />
-            <Label Text="Total Result:" />
-            <Label Text="{Binding RollTotal, Mode=OneWay}" FontSize="64" FontAttributes="Bold" Style="{StaticResource BaseLabelStyle}" />
+            <Label Text="Total Result:" Style="{StaticResource BaseLabelStyle}" />
+            <Label Text="{Binding RollTotal, Mode=OneWay}" Style="{StaticResource GiantLabelStyle}" />
         </VerticalStackLayout>
     </Grid>
 </ContentPage>
