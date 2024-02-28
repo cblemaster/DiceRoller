@@ -47,9 +47,9 @@ public class DiceRoll
         }
 
         // check for any invalid rolls
-        if (dieRolls.Any(d => d > Sides || d == 0))
+        if (dieRolls.Any(d => d > Sides || d == 0) || dieRolls.Count != Count)
         {
-            throw new InvalidRollException("Result contains one or more invalid rolls, either a zero or a number higher than the die's sides.");
+            throw new InvalidRollException("Result contains one or more invalid rolls, either a zero or a number higher than the die's sides. Or greater/fewer rolls than requested were performed.");
         }
 
         return dieRolls.AsEnumerable();
@@ -107,16 +107,18 @@ public class DiceRoll
         // this follows the 'roll 4d6 discard the lowest' rules
 
         List<AbilityScoreResult> results = [];
+        List<uint> rolls = [];
+        uint discardedValue = 0;
 
         for (int i = 1; i <= 6; i++)
         {
-            List<uint> rolls = Roll().Order().ToList();
-            uint lowest = rolls[0];
-            rolls.Remove(lowest);
+            rolls = Roll().Order().ToList();
+            discardedValue = rolls[0];
+            rolls.Remove(discardedValue);
 
             AbilityScoreResult result = new()
             {
-                DiscardedRoll = lowest.ToString(),
+                DiscardedRoll = discardedValue.ToString(),
                 Rolls = string.Join(", ", rolls),
                 RollTotal = (rolls.Sum(r => r)).ToString(),
             };
@@ -124,6 +126,12 @@ public class DiceRoll
             results.Add(result);
         }
 
-        return results.OrderBy(r => r.RollTotal);
+        // check for any invalid rolls, and that enough rolls occurred
+        if (rolls.Any(r => r == 0 || r > 18) || discardedValue == 0 || discardedValue > 18 || results.Count != 6)
+        {
+            throw new InvalidRollException("Result contains one or more invalid rolls, either a zero or a number higher than 18. Or fewer than six rolls were performed.");
+        }
+
+        return results;
     }
 }
