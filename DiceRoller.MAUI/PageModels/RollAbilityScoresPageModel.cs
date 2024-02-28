@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using DiceRoller.MAUI.Pages;
 
 namespace DiceRoller.MAUI.PageModels
 {
-    public class RollAbilityScoresPageModel
+    public partial class RollAbilityScoresPageModel : ObservableObject
     {
+        [RelayCommand]
+        private void HowItWorksClicked() => Shell.Current.Navigation.PushModalAsync(new HowItWorksPage());
     }
 }
