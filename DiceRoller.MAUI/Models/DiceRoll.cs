@@ -101,4 +101,29 @@ public class DiceRoll
             return value;
         }
     }
+
+    public IEnumerable<AbilityScoreResult> RollAbiltyScores()
+    {
+        // this follows the 'roll 4d6 discard the lowest' rules
+
+        List<AbilityScoreResult> results = [];
+
+        for (int i = 1; i <= 6; i++)
+        {
+            List<uint> rolls = Roll().Order().ToList();
+            uint lowest = rolls[0];
+            rolls.Remove(lowest);
+
+            AbilityScoreResult result = new()
+            {
+                DiscardedRoll = lowest.ToString(),
+                Rolls = string.Join(", ", rolls),
+                RollTotal = (rolls.Sum(r => r)).ToString(),
+            };
+
+            results.Add(result);
+        }
+
+        return results.OrderBy(r => r.RollTotal);
+    }
 }
