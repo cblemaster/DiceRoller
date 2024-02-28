@@ -78,6 +78,6 @@ public partial class RollDicePageModel : ObservableObject
         RollsAsString = RollsAsCommaSeparatedSttring(rolls);
         RollTotal = ((int)(rolls.Sum(r => r)) + ModifierNum).ToString();
 
-        LoggingService.WriteRollResultToLog(SelectedDieWithCount, RollsAsString, Modifier, RollTotal);
+        LoggingService.GenerateRollResultLog(SelectedDieWithCount, RollsAsString, Modifier, RollTotal);
     }
 }
