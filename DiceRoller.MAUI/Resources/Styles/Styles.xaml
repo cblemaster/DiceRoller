@@ -4,16 +4,14 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <Style TargetType="Button">
+    <Style TargetType="Button" x:Key="BaseButtonStyle">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource PrimaryDarkText}}" />
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource ButtonColor}" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
-        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontSize" Value="16"/>
         <Setter Property="BorderWidth" Value="0"/>
         <Setter Property="CornerRadius" Value="8"/>
         <Setter Property="Padding" Value="14,10"/>
-        <Setter Property="MinimumHeightRequest" Value="44"/>
-        <Setter Property="MinimumWidthRequest" Value="44"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
@@ -35,14 +33,58 @@
         </Setter>
     </Style>
 
+    <Style TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}" x:Key="SmallButtonStyle">
+        <Setter Property="HeightRequest" Value="60" />
+        <Setter Property="WidthRequest" Value="100" />
+        <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+    </Style>
+
+    <Style TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}" x:Key="LargeButtonStyle">
+        <Setter Property="HeightRequest" Value="150" />
+        <Setter Property="WidthRequest" Value="275" />
+        <Setter Property="FontSize" Value="28" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="Margin" Value="10,10,10,10" />
+    </Style>
+
+    <Style TargetType="Frame">
+        <Setter Property="HasShadow" Value="False" />
+        <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="HeightRequest" Value="110" />
+        <Setter Property="WidthRequest" Value="110" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal">
+                        <VisualState.Setters>
+                            <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Selected">
+                        <VisualState.Setters>
+                            <Setter Property="BorderColor" Value="{StaticResource Magenta}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Grid" x:Key="ContainerGridStyle">
+        <Setter Property="Margin" Value="20,20,20,20" />
+        <Setter Property="BackgroundColor" Value="{StaticResource GridBackground}" />
+        <Setter Property="ColumnDefinitions" Value="7*,3*" />
+        <Setter Property="RowDefinitions" Value="1*,1*,1*,1*,1*" />
+    </Style>
+
     <Style TargetType="Entry">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
-        <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="14" />
         <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray500}}" />
-        <Setter Property="MinimumHeightRequest" Value="44"/>
-        <Setter Property="MinimumWidthRequest" Value="44"/>
+        <Setter Property="HeightRequest" Value="50" />
+        <Setter Property="WidthRequest" Value="200" />
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
@@ -57,13 +99,22 @@
         </Setter>
     </Style>
 
-    <Style TargetType="Frame">
-        <Setter Property="HasShadow" Value="False" />
-        <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
-        <Setter Property="CornerRadius" Value="8" />
+    <Style TargetType="Entry" x:Key="validstyle">
+        <Setter Property="BackgroundColor" Value="{StaticResource White}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
     </Style>
-   
-    <Style TargetType="Label">
+
+    <Style TargetType="Entry" x:Key="invalidstyle">
+        <Setter Property="BackgroundColor" Value="LightPink" />
+        <Setter Property="TextColor" Value="{StaticResource Magenta}" />
+    </Style>
+
+    <Style TargetType="HorizontalStackLayout">
+        <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+        <Setter Property="Spacing" Value="10" />
+    </Style>
+
+    <Style TargetType="Label" x:Key="BaseLabelStyle">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="OpenSansRegular" />
@@ -81,7 +132,29 @@
             </VisualStateGroupList>
         </Setter>
     </Style>
-    
+
+    <Style TargetType="Label" BasedOn="{StaticResource BaseLabelStyle}" x:Key="DiceLabelStyle">
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+    </Style>
+
+    <Style TargetType="Label" BasedOn="{StaticResource BaseLabelStyle}" x:Key="JumboLabelStyle">
+        <Setter Property="FontSize" Value="20" />
+    </Style>
+
+    <Style TargetType="Label" BasedOn="{StaticResource BaseLabelStyle}" x:Key="LargeLabelStyle">
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <Style TargetType="Label" BasedOn="{StaticResource BaseLabelStyle}" x:Key="MediumDecoratedLabelStyle">
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="TextDecorations" Value="Underline" />
+    </Style>
+
     <Style TargetType="Page" ApplyToDerivedTypes="True">
         <Setter Property="Padding" Value="0"/>
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource OffBlack}}" />
@@ -112,5 +185,5 @@
         <Setter Property="UnselectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
         <Setter Property="SelectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
     </Style>
-
+    
 </ResourceDictionary>

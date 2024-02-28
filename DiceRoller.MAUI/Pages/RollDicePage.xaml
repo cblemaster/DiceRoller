@@ -8,66 +8,23 @@
              x:DataType="{x:Type models:RollDicePageModel}"
              Title="Roll Dice">
     <ContentPage.Resources>
-        <Style TargetType="Frame">
-            <Setter Property="VisualStateManager.VisualStateGroups">
-                <VisualStateGroupList>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualState x:Name="Normal">
-                            <VisualState.Setters>
-                                <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
-                            </VisualState.Setters>
-                        </VisualState>
-                        <VisualState x:Name="Selected">
-                            <VisualState.Setters>
-                                <Setter Property="BorderColor" Value="{StaticResource Magenta}" />
-                            </VisualState.Setters>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateGroupList>
-            </Setter>
-        </Style>
-        <Style TargetType="Entry" x:Key="validstyle">
-            <Setter Property="BackgroundColor" Value="{StaticResource White}" />
-            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
-        </Style>
-        <Style TargetType="Entry" x:Key="invalidstyle">
-            <Setter Property="BackgroundColor" Value="LightPink" />
-            <Setter Property="TextColor" Value="{StaticResource Magenta}" />
-        </Style>        
-        <Style TargetType="Label" x:Key="BaseLabelStyle">
-            <Setter Property="TextColor" Value="{StaticResource PrimaryDarkText}" />
-            <Setter Property="VerticalOptions" Value="Center" />
-        </Style>
-        <Style TargetType="Label" BasedOn="{StaticResource BaseLabelStyle}" x:Key="DiceLabelStyle">
-            <Setter Property="FontSize" Value="18" />
-            <Setter Property="FontAttributes" Value="Bold" />
-            <Setter Property="HorizontalOptions" Value="Center" />
-        </Style>        
-        <Style TargetType="Entry">
-            <Setter Property="HeightRequest" Value="50" />
-            <Setter Property="WidthRequest" Value="200" />
-        </Style>
-        <Style TargetType="HorizontalStackLayout">
-            <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
-            <Setter Property="Spacing" Value="10" />
-        </Style>
         <toolkit:InvertedBoolConverter x:Key="converter" />
     </ContentPage.Resources>
-    <Grid ColumnDefinitions="7*,3*" RowDefinitions="1*,1*,1*,1*,1*" Margin="20,20,20,20" BackgroundColor="{StaticResource GridBackground}">
+    <Grid Style="{StaticResource ContainerGridStyle}">
         <CollectionView ItemsSource="{Binding Dice, Mode=OneWay}" SelectedItem="{Binding SelectedDie, Mode=OneWayToSource}" SelectionChangedCommand="{Binding SelectedDieChangedCommand, Mode=OneWay}" SelectionMode="Single" Grid.ColumnSpan="2" Grid.RowSpan="2" HorizontalOptions="CenterAndExpand" Margin="10,10,10,10">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Horizontal" ItemSpacing="3" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame HeightRequest="110" WidthRequest="110">
+                    <Frame>
                         <Label Text="{Binding ., Mode=OneWay}" Style="{StaticResource DiceLabelStyle}" />
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
         <HorizontalStackLayout Grid.Row="2">
-            <Label Text="Count of dice to roll:" FontSize="18" Style="{StaticResource BaseLabelStyle}"  VerticalOptions="Center" />
+            <Label Text="Count of dice to roll:" Style="{StaticResource LargeLabelStyle}" />
             <Entry Text="{Binding Count, Mode=TwoWay}" IsEnabled="{Binding D2d3D100IsSelected, Mode=OneWay, Converter={StaticResource converter}}" Placeholder="Count of dice to roll" ToolTipProperties.Text="You can roll between one (1) and 100 dice! (d2, d3, and d100 can only be rolled as singles.)">
                 <Entry.Behaviors>
                     <toolkit:NumericValidationBehavior MinimumValue="1" MaximumValue="100" MaximumDecimalPlaces="0" Flags="ValidateOnValueChanged" ValidStyle="{StaticResource validstyle}" InvalidStyle="{StaticResource invalidstyle}" />
@@ -75,16 +32,16 @@
             </Entry>
         </HorizontalStackLayout>
         <HorizontalStackLayout Grid.Row="3">
-            <Label Text="Modifier:" FontSize="18" Style="{StaticResource BaseLabelStyle}"  VerticalOptions="Center" />
+            <Label Text="Modifier:" Style="{StaticResource LargeLabelStyle}" />
             <Entry Text="{Binding Modifier, Mode=TwoWay}" Placeholder="Modifier" ToolTipProperties.Text="Modifier can be between -100 and 100.">
                 <Entry.Behaviors>
                     <toolkit:NumericValidationBehavior MinimumValue="-100" MaximumValue="100" MaximumDecimalPlaces="0" Flags="ValidateOnValueChanged" ValidStyle="{StaticResource validstyle}" InvalidStyle="{StaticResource invalidstyle}" />
                 </Entry.Behaviors>
             </Entry>
         </HorizontalStackLayout>
-        <Button Command="{Binding RollDiceClickedCommand, Mode=OneWay}" IsEnabled="{Binding CanRollDice, Mode=OneWay}" Grid.Row="4" Text="Roll Dice" BackgroundColor="{StaticResource ButtonColor}" HeightRequest="60" WidthRequest="100" HorizontalOptions="CenterAndExpand" />
+        <Button Command="{Binding RollDiceClickedCommand, Mode=OneWay}" IsEnabled="{Binding CanRollDice, Mode=OneWay}" Grid.Row="4" Text="Roll Dice" Style="{StaticResource SmallButtonStyle}" />
         <VerticalStackLayout Grid.Column="1" Grid.Row="2" Grid.RowSpan="3">
-            <Label Text="Results" FontAttributes="Bold" FontSize="16" TextDecorations="Underline" Style="{StaticResource BaseLabelStyle}"/>
+            <Label Text="Results" Style="{StaticResource MediumDecoratedLabelStyle}"/>
             <Label Text="{Binding SelectedDieWithCount, Mode=OneWay, StringFormat='Dice selected: {0}'}" Grid.Row="1" Style="{StaticResource BaseLabelStyle}" />
             <Label Text="{Binding RollsAsString, Mode=OneWay, StringFormat='Indivdual rolls: {0}'}" MaxLines="15" Style="{StaticResource BaseLabelStyle}" />
             <Label Text="{Binding Modifier, Mode=OneWay, StringFormat='Modifier: {0}'}" Style="{StaticResource BaseLabelStyle}" />
