@@ -23,7 +23,9 @@ namespace DiceRoller.MAUI
                     .AddTransient<RollDicePageModel>()
                     .AddTransient<RollDicePage>()
                     .AddTransient<RollAbilityScoresPageModel>()
-                    .AddTransient<RollAbilityScoresPage>();
+                    .AddTransient<RollAbilityScoresPage>()
+                    .AddTransient<HowItWorksPageModel>()
+                    .AddTransient<HowItWorksPage>();
 
 #if DEBUG
             builder.Logging.AddDebug();

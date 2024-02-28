@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:DiceRoller.MAUI.PageModels"
+             x:Class="DiceRoller.MAUI.Pages.HowItWorksPage"
+             x:DataType="{x:Type models:HowItWorksPageModel}"
+             Title="How It Works">
+    <VerticalStackLayout Margin="10,10,10,10" Spacing="15">
+        <Label Text="How it Works..." Style="{StaticResource JumboLabelStyle}" />
+        <Label Style="{StaticResource LargeLabelStyle}" Text="Click the Roll Ability Scores button" />
+        <Label Style="{StaticResource LargeLabelStyle}" Text="4d6 are rolled, with the lowest die discarded" />
+        <Label Style="{StaticResource LargeLabelStyle}" Text="Which effectively returns 3d6" />
+        <Label Style="{StaticResource LargeLabelStyle}" Text="This happens six times, once per ability score" />
+        <Label Style="{StaticResource LargeLabelStyle}" Text="The results are displayed sorted lowest to highest" />
+        <Button Command="{Binding CloseClickedCommand, Mode=OneWay}" Style="{StaticResource SmallButtonStyle}" Text="Close" />
+    </VerticalStackLayout>
+</ContentPage>
