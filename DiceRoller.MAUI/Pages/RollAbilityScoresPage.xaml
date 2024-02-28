@@ -5,11 +5,26 @@
              Title="Roll Ability Scores">
     <Grid Style="{StaticResource ContainerGridStyle}" RowDefinitions="2*,8*">
         <HorizontalStackLayout Margin="15,15,15,15" HorizontalOptions="StartAndExpand" Spacing="10">
-            <Button Command="{Binding HowItWorksClickedCommand}" Text="How It Works" Style="{StaticResource LargeButtonStyle}" />
-            <Button Text="Roll Ability Scores" Style="{StaticResource LargeButtonStyle}" />
+            <Button Command="{Binding HowItWorksClickedCommand, Mode=OneWay}" Text="How It Works" Style="{StaticResource LargeButtonStyle}" />
+            <Button Command="{Binding RollAbilityScoresClickedCommand,Mode=OneWay}" Text="Roll Ability Scores" Style="{StaticResource LargeButtonStyle}" />
         </HorizontalStackLayout>
-        <VerticalStackLayout Grid.Row="1" Margin="15,15,15,15">
-            <Label Style="{StaticResource LargeLabelStyle}" Text="Results" />
-        </VerticalStackLayout>
+        <CollectionView ItemsSource="{Binding RollResults, Mode=OneWay}" Grid.Row="1" SelectionMode="None">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Horizontal" Span="2" VerticalItemSpacing="10" HorizontalItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Style="{StaticResource RollAbilityScoresFrameStyle}">
+                        <VerticalStackLayout>
+                            <HorizontalStackLayout Spacing="20">
+                                <Label Text="{Binding DiscardedRoll, Mode=OneWay}" Style="{StaticResource LargerStrikethroughLabelStyle}" />
+                                <Label Text="{Binding Rolls, Mode=OneWay}" Style="{StaticResource LargerLabelStyle}" />
+                            </HorizontalStackLayout>
+                            <Label Text="{Binding RollTotal, Mode=OneWay}" Style="{StaticResource AbilityScoreResultLabelStyle}" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </Grid>
 </ContentPage>
