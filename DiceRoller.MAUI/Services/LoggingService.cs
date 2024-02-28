@@ -1,12 +1,11 @@
 ﻿using DiceRoller.MAUI.Models;
-using Microsoft.UI.Xaml.Controls.Primitives;
 using System.Text;
 
 namespace DiceRoller.MAUI.Services
 {
     public static class LoggingService
     {
-        private static readonly string FILE = $"DiceRollsLog_{DateTime.Now.ToString("M-d-yyyy H_mm_ss")}.txt".Replace(" ", "_");
+        private static readonly string FILE = $"DiceRollsLog_{DateTime.Now:M-d-yyyy H_mm_ss}.txt".Replace(" ", "_");
         private const string PATH = @"..\..\..\..\..\Logs";
 
         public static void GenerateRollResultLog(string selected, string rolls, string modifier, string total)

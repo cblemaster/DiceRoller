@@ -46,7 +46,7 @@ public partial class RollDicePageModel : ObservableObject
     private void SelectedDieChanged()
     {
         CanRollDice = true;
-        
+
         D2d3D100IsSelected = SelectedDie == "d2" || SelectedDie == "d3" || SelectedDie == "d100";
         if (D2d3D100IsSelected)
         {
@@ -66,7 +66,7 @@ public partial class RollDicePageModel : ObservableObject
 
             return (sidesNum, countNum, modifierNum);
         }
-        string RollsAsCommaSeparatedSttring(IEnumerable<uint> rolls) => string.Join(", ", rolls.ToList().Order());
+        string RollsAsCommaSeparatedString(IEnumerable<uint> rolls) => string.Join(", ", rolls.ToList().Order());
 
         SelectedDieWithCount = $"{Count}{SelectedDie}";
 
@@ -75,7 +75,7 @@ public partial class RollDicePageModel : ObservableObject
         DiceRoller = new() { Sides = SidesNum, Count = CountNum, Modifier = ModifierNum };
         IEnumerable<uint> rolls = DiceRoller.Roll();
 
-        RollsAsString = RollsAsCommaSeparatedSttring(rolls);
+        RollsAsString = RollsAsCommaSeparatedString(rolls);
         RollTotal = ((int)(rolls.Sum(r => r)) + ModifierNum).ToString();
 
         LoggingService.GenerateRollResultLog(SelectedDieWithCount, RollsAsString, Modifier, RollTotal);

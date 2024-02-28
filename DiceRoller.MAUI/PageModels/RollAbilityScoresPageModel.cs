@@ -11,10 +11,10 @@ public partial class RollAbilityScoresPageModel : ObservableObject
 {
     [ObservableProperty]
     private ReadOnlyCollection<AbilityScoreResult> _rollResults = default!;
-        
+
     [RelayCommand]
     private void HowItWorksClicked() => Shell.Current.Navigation.PushModalAsync(new HowItWorksPage());
-    
+
     [RelayCommand]
     private void RollAbilityScoresClicked()
     {

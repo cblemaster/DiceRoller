@@ -22,22 +22,22 @@ public class DiceRoll
 
         List<uint> dieRolls = [];
 
-        if (!IsSidesValid || !IsModifierValid || !IsCountValid) { return dieRolls; }
+        if (!IsSidesValid || !IsModifierValid || !IsCountValid) { return dieRolls.AsEnumerable(); }
 
         if (Sides == 100)   // d100 has special rules
         {
             dieRolls.Add(RollPercentile());
-            return dieRolls;
+            return dieRolls.AsEnumerable();
         }
         if (Sides == 2)   // d2 has special rules
         {
             dieRolls.Add(Rolld2());
-            return dieRolls;
+            return dieRolls.AsEnumerable();
         }
         if (Sides == 3)   // d3 has special rules
         {
             dieRolls.Add(Rolld3());
-            return dieRolls;
+            return dieRolls.AsEnumerable();
         }
 
         // generate random for each Count and add to collection to return
@@ -47,13 +47,10 @@ public class DiceRoll
         }
 
         // check for any invalid rolls
-        if (dieRolls.Any(d => d > Sides || d == 0) || dieRolls.Count != Count)
-        {
-            throw new InvalidRollException("Result contains one or more invalid rolls, either a zero or a number higher than the die's sides. Or greater/fewer rolls than requested were performed.");
-        }
-
-        return dieRolls.AsEnumerable();
-
+        return dieRolls.Any(d => d > Sides || d == 0) || dieRolls.Count != Count
+            ? throw new InvalidRollException("Result contains one or more invalid rolls, either a zero or a number higher than the die's sides. Or greater/fewer rolls than requested were performed.")
+            : dieRolls.AsEnumerable();
+        
         uint RollPercentile()
         {
             // Per the 5th edition PH d100 is two (2) d10s
@@ -112,7 +109,7 @@ public class DiceRoll
 
         for (int i = 1; i <= 6; i++)
         {
-            rolls = Roll().Order().ToList();
+            rolls = [.. Roll().Order()];
             discardedValue = rolls[0];
             rolls.Remove(discardedValue);
 
@@ -127,11 +124,8 @@ public class DiceRoll
         }
 
         // check for any invalid rolls, and that enough rolls occurred
-        if (rolls.Any(r => r == 0 || r > 18) || discardedValue == 0 || discardedValue > 18 || results.Count != 6)
-        {
-            throw new InvalidRollException("Result contains one or more invalid rolls, either a zero or a number higher than 18. Or fewer than six rolls were performed.");
-        }
-
-        return results;
+        return rolls.Any(r => r == 0 || r > 18) || discardedValue == 0 || discardedValue > 18 || results.Count != 6
+            ? throw new InvalidRollException("Result contains one or more invalid rolls, either a zero or a number higher than 18. Or fewer than six rolls were performed.")
+            : results.AsEnumerable();
     }
 }
