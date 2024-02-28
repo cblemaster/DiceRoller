@@ -7,10 +7,14 @@
     xmlns:pages="clr-namespace:DiceRoller.MAUI.Pages"
     Shell.FlyoutBehavior="Disabled"
     Title="Dice Roller">
-
-    <ShellContent
-        Title="Dice Roller"
-        ContentTemplate="{DataTemplate pages:RollDicePage}"
-        Route="MainPage" />
-
+    <TabBar>
+        <ShellContent
+            Title="Roll Dice"
+            ContentTemplate="{DataTemplate pages:RollDicePage}"
+            Route="RollDicePage" />
+        <ShellContent
+            Title="Roll Ability Scores"
+            ContentTemplate="{DataTemplate pages:RollAbilityScoresPage}"
+            Route="RollAbilityScores" />
+    </TabBar>
 </Shell>

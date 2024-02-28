@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DiceRoller.MAUI.Pages.RollAbilityScoresPage"
+             Title="Roll Ability Scores">
+    <Grid Style="{StaticResource ContainerGridStyle}" RowDefinitions="3*,2*">
+        <VerticalStackLayout Margin="10,10,10,10">
+            <Label Text="How it Works..." Style="{StaticResource JumboLabelStyle}" />
+            <Label Style="{StaticResource LargeLabelStyle}" Text="Click the Roll Ability Scores button" Margin="20,10,0,10" />
+            <Label Style="{StaticResource LargeLabelStyle}" Text="4d6 are rolled, with the lowest die discarded" Margin="20,0,0,10" />
+            <Label Style="{StaticResource LargeLabelStyle}" Text="Which effectively returns 3d6" Margin="20,0,0,10" />
+            <Label Style="{StaticResource LargeLabelStyle}" Text="This happens six times, once per ability score" Margin="20,0,0,10" />
+            <Label Style="{StaticResource LargeLabelStyle}" Text="The results are summarized to the right, sorted lowest to highest" Margin="20,0,0,0" />
+        </VerticalStackLayout>
+        <Button Text="Roll Ability Scores" Grid.Row="1" Style="{StaticResource LargeButtonStyle}" />
+        <VerticalStackLayout Grid.Column="1" Grid.RowSpan="2" Margin="10,10,10,10">
+            <Label Text="Results" Style="{StaticResource BaseLabelStyle}" FontSize="20" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

@@ -21,7 +21,9 @@ namespace DiceRoller.MAUI
                 .Services
                     .AddSingleton<AppShell>()
                     .AddTransient<RollDicePageModel>()
-                    .AddTransient<RollDicePage>();
+                    .AddTransient<RollDicePage>()
+                    .AddTransient<RollAbilityScoresPageModel>()
+                    .AddTransient<RollAbilityScoresPage>();
 
 #if DEBUG
             builder.Logging.AddDebug();
