@@ -4,8 +4,8 @@ using DiceRoller.MAUI.Models;
 using DiceRoller.MAUI.Services;
 using System.Collections.ObjectModel;
 
-namespace DiceRoller.MAUI.PageModels
-{
+namespace DiceRoller.MAUI.PageModels;
+
     public partial class RollDicePageModel : ObservableObject
     {
         public RollDicePageModel()
@@ -81,4 +81,3 @@ namespace DiceRoller.MAUI.PageModels
             LoggingService.WriteRollResultToLog(SelectedDieWithCount, RollsAsString, Modifier, RollTotal);
         }
     }
-}
