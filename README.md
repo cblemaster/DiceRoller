@@ -18,6 +18,7 @@
 - Add a modifier to a roll, between -100 and +100
 - d2, d3, and d100 can only be rolled as singles
 - d2, d3, and d100 follow the mechanics specified in the D&D 5th edition Player's Handbook
+- Roll ability scores: 4d6 are rolled, with the lowest die discarded, six times (once per ability score)
 
 ## Instructions for running the application:
 - Note that Visual Studio is required for running the application
